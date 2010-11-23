@@ -343,7 +343,7 @@ function publish_achievements
     git_achievements="$(which git-achievements)"
     git_achievements_dir="$(dirname "${git_achievements}")"
     if [ -L "${git_achievements}" ]; then
-      git_achievements_dir="${git_achievements_dir}/$(dirname $(readlink ${git_achievements}))"
+      git_achievements_dir="$(dirname $(readlink ${git_achievements}))"
     fi
 
     cd "${git_achievements_dir}"
@@ -450,9 +450,10 @@ There are $total Achievements. Some achievements can be leveled up depending on 
         return
     fi
 
-    if [ ! "`git config --global achievement.upload`" = "true" ] ; then
-        return
-    fi
+    # if [ ! "`git config --global achievement.upload`" = "true" ] ; then
+    #     echo "Uploads disabled, returning..."
+    #     return
+    # fi
 
     echo "Adding new achievements and publishing to origin."
     git add index.html index.rss
